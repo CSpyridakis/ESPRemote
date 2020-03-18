@@ -1,54 +1,39 @@
 # ESPRemote
-### VER 0.1
+### VER 1.1
 
-A simple WiFI remote controller using the ESP8266 SoC.
+This repository is a fork of [Almidi's version of ESPRemote](https://github.com/Almidi/ESPRemote), a simple WiFI remote controller using the ESP8266 SoC.
 
-The goal of this project is the creation of a simple to use WiFi remote controller aimed at usage with the numerous home automation suites available, such as _[HomeAssistant](https://www.home-assistant.io)_ and _[OpenHab](https://www.openhab.org)_.
+The main difference between his implementation and this fork is about the limit of the input power supply voltage. In his repo, he uses an _[AP2112K](https://www.google.gr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=2ahUKEwjnxLrnpvbgAhUEK1AKHWMBD-AQFjAAegQIChAC&url=https%3A%2F%2Fwww.diodes.com%2Fassets%2FDatasheets%2FAP2112.pdf&usg=AOvVaw2XV2W1VE0JfD3LlF0lkARI)_ LDO voltage regulator that has a 6.5V Vin limit, to power it from USB chargers. 
 
-The system utilizes an _[Espressif ESP-12](https://docs.platformio.org/en/latest/boards/espressif8266/esp12e.html)_ module coupled with an _[MCP73831T](https://www.google.gr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=2ahUKEwiDvMTDpvbgAhXJfFAKHZEMD0UQFjAAegQIChAC&url=https%3A%2F%2Fwww.sparkfun.com%2Fdatasheets%2FPrototyping%2FBatteries%2FMCP73831T.pdf&usg=AOvVaw3YKAY2DJq01YtSUwFzsNai)_ chip for battery management and an _[AP2112K](https://www.google.gr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=2ahUKEwjnxLrnpvbgAhUEK1AKHWMBD-AQFjAAegQIChAC&url=https%3A%2F%2Fwww.diodes.com%2Fassets%2FDatasheets%2FAP2112.pdf&usg=AOvVaw2XV2W1VE0JfD3LlF0lkARI)_ LDO voltage regulator.
+Personally, I have all over in my place 12V power supplies to power led strips, for this reason, it would be a nice touch if I could power it directly from there without the need for an external power supply. So in this fork, the [NCP1117](https://www.onsemi.com/pub/Collateral/NCP1117-D.PDF) or [AMS1117](http://www.advanced-monolithic.com/pdf/ds1117.pdf) voltage regulator is used.
 
-## Configurations
+Please check out his [repo](https://github.com/Almidi/ESPRemote) if you want to use the battery/5v dc version, learn more about the beginning version or details about the firmware.
 
-The board can be configured as a battery powered remote control, or as a DC powered button panel. To achieve this a jumper was added (SJ2) to select between battery and direct USB power. A second jumper was also added (JP2) to bypass the power switch. Using the above jumpers, the BMS circuit can be completely ignored and left unpopulated in case the device is inteded for always pluged-in use from a 5V DC power supply.
+## PCB
+### Schematic
+![PCB 3D Model](doc/schematic.png)
 
-## Firmware
+### Top
+![Top](doc/top.png)
 
-Using the _[Espressif ESP-12](https://docs.platformio.org/en/latest/boards/espressif8266/esp12e.html)_ module offers great flexibility in existing firmware options. Currently the _[ESPHome](https://esphome.io/index.html)_ firmware is used, designed for seemless intergation with the _[HomeAssistant](https://www.home-assistant.io)_ platform.
-
-Due to the device not beign intended as a development board, an FTDI chip was excluded from the design, leaving the need for a small 6-pin SH 1.0mm micro jst connector as a UART interface.
-
-**Uploading new firmware requires the pin D0 and GND of the UART connector to be tied together.** After doing so the device must be reset, setting it in download mode and enabling new firmware to be uploaded. **This can also be achieved holding down the 4th button before powering on the device**.
+### Bottom
+![Bottom](doc/bottom.png)
 
 ## I/O
 
-|                 | Pin    |
+| Usage           | Pin    |
 |-----------------|--------|
 | Button 1        | GPIO5  |
 | Button 2        | GPIO4  |
 | Button 3        | GPIO12 |
 | Button 4        | GPIO0  |
 | Button 5        | GPIO13 |
-| Battery Voltage | ADC    |
 | Status Led      | GPIO16 |
 
 
-## PCB
+## Enclosure 
+I also use [Almidi's](https://github.com/Almidi/ESPRemote) enclosure for this version.
 
-![PCB Top Layer](Images/ESPRemotePCBTop.png    "Top Layer")
+![3D Model](doc/enclosure.png)
 
-![PCB Bottom Layer](Images/ESPRemotePCBBottom.png    "Bottom Layer")
 
-![PCB 3D Model](Images/ESPRemotePCBTopFusion.png    "PCB 3D Model")
-
-## Enclosure
-
-The enclosure is designed to incorporate 2x 250mAh li-po cells and be 3D printed in two parts.
-
-![3D Model](Images/Enclosure.png    "Enclosure 3D Model")
-
-## Future Work
-
-- Incorporate a small 128x64 OLED screen.
-- Add an IR transmitter to the design, so that the controller can be used with existing household devices.
-- Add an accelerometer for gesture control.
-- Design a better, prettier and easier to hold enclosure.
