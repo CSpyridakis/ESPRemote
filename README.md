@@ -13,6 +13,22 @@ Please check out his [repo](https://github.com/Almidi/ESPRemote) if you want to 
 ### Schematic
 ![PCB 3D Model](doc/schematic.png)
 
+#### Note: C3, C4, C5 and C6 are optional !!!
+
+### Assembly
+| No  |   Component   |    Quantity      |
+|:---:|:-------------:|:----------------:|
+| 1.  |      ESP8266 - 12e/f         | 1 | 
+| 2.  |    10KΩ 0805 smd resistors   | 9 | 
+| 3.  |      SMD-SWITCH-6.2MM        | 5 |
+| 4.  |  IN5819 or SS14 or S4 Diode  | 1 |
+| 5.  | NCP1117 or REG1117 Regulator | 1 |
+| 6.  | 10uF 25v 0805 smd capasitors | 2 |
+| 7.  |          0603 smd led        | 1 |
+| 8.  |  0805 smd resistor for led <sup>1</sup>  | 1 |
+
+<sup>1</sup> The resistor value depends on the color of the led you would choose to use.
+
 ### Top
 ![Top](doc/top.png)
 
